@@ -15,7 +15,9 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      // TODO: search by traits
+      searchAgain = callFeatures();  
+      
+      ///////////////finished. note this in the terminal. ///////////////////////////////////////////////////////////////
       break;
       default:
     app(people); // restart app
@@ -24,6 +26,23 @@ function app(people){
   
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
   mainMenu(searchResults, people);
+}
+
+//The function to call features: first, last, DOB, gender, height, weight, eye color, occupation, parents, current spouse.  
+
+function callFeatures (noResponse){
+  let searchAgain = prompt ("Please enter the type of information that you would like to use to search for a person. Options: first, last, DOB, gender, height, weight, eye color, occupation, parents, current spouse.") 
+ //changes the input to all lower case. 
+//  searchAgain.toLowerCase();
+ //turn string into an array. 
+ let arrSearchAgain = searchAgain.split(" ");
+ console.log (arrSearchAgain);
+  for (let i=0; i<=arrSearchAgain.length-1; i++ ){  
+  if(searchAgain== "first" ){
+    let firstResults = searchByFirstName();
+    return 
+    }
+  }
 }
 
 // Menu function to call once you find who you are looking for
@@ -82,11 +101,26 @@ function searchByName(people){
   return foundPerson;
 }
 
+
+///////////////////////////////////////////Created a function to search by first name. Please add to the terminal. 
+function searchByFirstName(people){
+  let firstName = promptFor("What is the person's first name?", autoValid);
+  let foundFirstName = people.filter(function(potentialMatch){
+   if (potentialMatch.firstName === firstName){
+    return true;
+  }
+  else{
+    return false;
+  }
+})
+return foundFirstName;
+}
+
+
 //unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
 function searchByEyeColor(people){
 
 }
-
 //TODO: add other trait filter functions here.
 
 
@@ -133,8 +167,8 @@ function promptFor(question, valid){
   do{
     response = prompt(question).trim();
     isValid = valid(response);
-  } while(response !== ""  ||  isValid === false)
-  return response
+  } while(response === ""  ||  isValid === false)
+  return response;
 }
 
 // helper function/callback to pass into promptFor to validate yes/no answers.
