@@ -106,6 +106,7 @@ function searchByName(people){
 function searchByFirstName(people){
   let firstName = promptFor("What is the person's first name?", autoValid);
   let foundFirstName = people.filter(function(potentialMatch){
+    //we are getting a error here because (we think) we didn't fully connect it the sinlge person object using the name they entered. Same issue as the searchByName function. 
    if (potentialMatch.firstName === firstName){
     return true;
   }
