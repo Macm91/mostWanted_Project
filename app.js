@@ -15,7 +15,22 @@ function app(people) {
       searchResults = searchByName(people);
       break;
     case 'no':
-      // TODO: search by traits
+    function traits(attribute) {
+      let searchbyDetails =promptFor("give any specfic details or feature of the person you are searching"); 
+      let findAttribute;
+      switch(attribute){
+        case 'first name':
+        searchbyDetails = searchByFirstName(people);
+        break;
+        case 'last name' : 
+        searchbyDetails = searchByLastName(people)
+        case 'eye color' : 
+        searchbyDetails = searchByEyeColor(people)
+        case '' : 
+        searchbyDetails = searchByLastName(people)
+      }
+    } 
+    // TODO: search by traits
       break;
     default:
       app(people); // restart app
@@ -81,6 +96,35 @@ function searchByName(people) {
   return foundPerson;
 }
 
+
+
+function searchByFirstName(people) {
+  let firstName = promptFor("What is the persons's first name?", autoValid);
+
+  let foundFirstName = people.filter(function (potentialMatch) {
+    if (potentialMatch.firstName === firstName) {
+      return true;
+    } else {
+      return false;
+    }
+  })
+  return foundfirstName;
+}
+
+function searchByLastName(people) {
+  let lastName = promptFor("What is the persons's last name?", autoValid);
+
+  let foundLastName = people.filter(function (potentialMatch) {
+    if (potentialMatch.lastName === lastName) {
+      return true;
+    } else {
+      return false;
+    }
+  })
+  return foundLastName;
+}
+
+
 //unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
 function searchByEyeColor(people) {
   let eyeColor = promptFor("What is the persons's eye color?", autoValid);
@@ -97,7 +141,7 @@ function searchByEyeColor(people) {
 
 //TODO: add other trait filter functions here.
 function searchByOccupation(people) {
-  let occupation = promptFor("What is the persons's eye color?", autoValid);
+  let occupation = promptFor("What is the persons's Occuapation?", autoValid);
 
   let foundOccupation = people.filter(function (potentialMatch) {
     if (potentialMatch.occupation === occupation) {
