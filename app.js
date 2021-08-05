@@ -16,18 +16,41 @@ function app(people) {
       break;
     case 'no':
     function traits(attribute) {
-      let searchbyDetails =promptFor("give any specfic details or feature of the person you are searching"); 
+      let searchByDetails =promptFor("give any specfic details or feature of the person you are searching"); 
       let findAttribute;
       switch(attribute){
         case 'first name':
-        searchbyDetails = searchByFirstName(people);
+        searchByDetails = searchByFirstName(people);
         break;
         case 'last name' : 
-        searchbyDetails = searchByLastName(people)
+        searchByDetails = searchByLastName(people);
+        break;
         case 'eye color' : 
-        searchbyDetails = searchByEyeColor(people)
-        case '' : 
-        searchbyDetails = searchByLastName(people)
+        searchByDetails = searchByEyeColor(people);
+        break;
+        case 'Occupation' : 
+        searchByDetails = searchByOccupation(people);
+        break;
+        case "Gender" :
+        searchByDetails = searchByOccupation(people);  
+        break;
+        case "Dob" :
+        searchByDetails = searchByDOB(people);
+        break;
+        case 'weight':
+        searchByDetails = searchByWeight(people);
+        break;
+        case 'height':
+        searchByDetails = searchByHeight(people)
+        break;
+        case 'id':
+        searchByDetails = searchBySpouse(people)
+        case 'current spouse':
+        break;
+        case 'parents':
+        searchByDetails = searchByParents(people)
+        break;
+
       }
     } 
     // TODO: search by traits
