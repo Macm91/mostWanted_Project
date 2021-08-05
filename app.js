@@ -15,45 +15,47 @@ function app(people) {
       searchResults = searchByName(people);
       break;
     case 'no':
-    function traits(attribute) {
-      let searchByDetails =promptFor("give any specfic details or feature of the person you are searching"); 
-      let findAttribute;
-      switch(attribute){
-        case 'first name':
-        searchByDetails = searchByFirstName(people);
-        break;
-        case 'last name' : 
-        searchByDetails = searchByLastName(people);
-        break;
-        case 'eye color' : 
-        searchByDetails = searchByEyeColor(people);
-        break;
-        case 'Occupation' : 
-        searchByDetails = searchByOccupation(people);
-        break;
-        case "Gender" :
-        searchByDetails = searchByOccupation(people);  
-        break;
-        case "Dob" :
-        searchByDetails = searchByDOB(people);
-        break;
-        case 'weight':
-        searchByDetails = searchByWeight(people);
-        break;
-        case 'height':
-        searchByDetails = searchByHeight(people)
-        break;
-        case 'id':
-        searchByDetails = searchBySpouse(people)
-        case 'current spouse':
-        break;
-        case 'parents':
-        searchByDetails = searchByParents(people)
-        break;
+      let
 
+      function traits(attribute) {
+        let searchByDetails = promptFor("give any specfic details or feature of the person you are searching");
+        let findAttribute;
+        switch (searchByDetails) {
+          case 'first name':
+            findAttribute = searchByFirstName(people);
+            break;
+          case 'last name':
+            findAttribute = searchByLastName(people);
+            break;
+          case 'eye color':
+            findAttribute = searchByEyeColor(people);
+            break;
+          case 'Occupation':
+            findAttribute = searchByOccupation(people);
+            break;
+          case "Gender":
+            findAttribute = searchByOccupation(people);
+            break;
+          case "Dob":
+            findAttribute = searchByDOB(people);
+            break;
+          case 'weight':
+            findAttribute = searchByWeight(people);
+            break;
+          case 'height':
+            findAttribute = searchByHeight(people)
+            break;
+          case 'id':
+            findAttribute = searchBySpouse(people)
+          case 'current spouse':
+            break;
+          case 'parents':
+            findAttribute = searchByParents(people)
+            break;
+
+        }
       }
-    } 
-    // TODO: search by traits
+      // TODO: search by traits
       break;
     default:
       app(people); // restart app
@@ -229,6 +231,7 @@ function searchByWeight(people) {
   })
   return foundWeight;
 }
+
 function searchById(people) {
   let id = promptFor("What is the persons's Id?", autoValid);
 
@@ -254,6 +257,7 @@ function searchBySpouse(people) {
   })
   return foundCurrentSpouse;
 }
+
 function searchByParents(people) {
   let parents = promptFor("Who is the persons's parents?", autoValid);
 
