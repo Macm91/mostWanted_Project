@@ -33,38 +33,25 @@ function app(people) {
   mainMenu(searchResults, people);
 }
 
+// function pickTraits prompt: list up to 5 attributes to 
+//if...else to call the 
+let attributesReturned = [];
 
 function traits(attribute) {
-  let searchByDetails = promptFor("give any specfic details or feature of the person you are searching");
-  let findAttribute;
-  switch (searchByDetails) {
-    case 'eye color':
-      findAttribute = searchByEyeColor(people);
-      break;
-    case 'Occupation':
-      findAttribute = searchByOccupation(people);
-      break;
-    case "Gender":
-      findAttribute = searchByOccupation(people);
-      break;
-    case "Dob":
-      findAttribute = searchByDOB(people);
-      break;
-    case 'weight':
-      findAttribute = searchByWeight(people);
-      break;
-    case 'height':
-      findAttribute = searchByHeight(people)
-      break;
-    case 'id':
-      findAttribute = searchBySpouse(people)
-    case 'current spouse':
-      break;
-    case 'parents':
-      findAttribute = searchByParents(people)
-      break;
+  let input = prompt ("Please write up to 5 traits you would like to input to find your person. Options include: eye color, occupation, gender, DOB, Weight, Height, ID. ")
+  if ()
+  let findEyeColor = searchByEyeColor (attribute);
+  let findOccupation = searchByOccupation (attribute);
+  let findGender = searchByGender (attribute);
+  let findDob = searchByDOB(attribute);
+  let findWeight = searchByWeight(attribute);
+  let findHeight = searchByHeight (attribute);
+  let findId = searchById (attribute);
+
+  // final function needs to be the one comparing the results 
+  //we will return a prompt that will display the info of the person from the final function 
   }
-}
+
       
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people) {
@@ -95,7 +82,7 @@ function mainMenu(person, people) {
       return; // stop execution
     default:
       return mainMenu(person, people); // ask again
-  }
+  }       
 }
 
 //#endregion
@@ -177,7 +164,7 @@ function searchByHeight(people) {
   let height = promptFor("What is the persons's height?", autoValid);
 
   let foundHeight = people.filter(function (potentialMatch) {
-    if (potentialMatch.dob === dob) {
+    if (potentialMatch.height === height) {
       return true;
     } else {
       return false;
@@ -189,8 +176,8 @@ function searchByHeight(people) {
 function searchByWeight(people) {
   let weight = promptFor("What is the persons's Weight?", autoValid);
 
-  let foundHeight = people.filter(function (potentialMatch) {
-    if (potentialMatch.Weight === weight) {
+  let foundWeight = people.filter(function (potentialMatch) {
+    if (potentialMatch.weight === weight) {
       return true;
     } else {
       return false;
