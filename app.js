@@ -10,51 +10,18 @@
 function app(people) {
   let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   let searchResults;
+  let startFindAttributes;
   switch (searchType) {
     case 'yes':
       searchResults = searchByName(people);
       break;
     case 'no':
-      let
+      startFindAttributes = traits(people);
 
-      function traits(attribute) {
-        let searchByDetails = promptFor("give any specfic details or feature of the person you are searching");
-        let findAttribute;
-        switch (searchByDetails) {
-          case 'first name':
-            findAttribute = searchByFirstName(people);
-            break;
-          case 'last name':
-            findAttribute = searchByLastName(people);
-            break;
-          case 'eye color':
-            findAttribute = searchByEyeColor(people);
-            break;
-          case 'Occupation':
-            findAttribute = searchByOccupation(people);
-            break;
-          case "Gender":
-            findAttribute = searchByOccupation(people);
-            break;
-          case "Dob":
-            findAttribute = searchByDOB(people);
-            break;
-          case 'weight':
-            findAttribute = searchByWeight(people);
-            break;
-          case 'height':
-            findAttribute = searchByHeight(people)
-            break;
-          case 'id':
-            findAttribute = searchBySpouse(people)
-          case 'current spouse':
-            break;
-          case 'parents':
-            findAttribute = searchByParents(people)
-            break;
 
-        }
-      }
+
+
+
       // TODO: search by traits
       break;
     default:
@@ -66,6 +33,39 @@ function app(people) {
   mainMenu(searchResults, people);
 }
 
+
+function traits(attribute) {
+  let searchByDetails = promptFor("give any specfic details or feature of the person you are searching");
+  let findAttribute;
+  switch (searchByDetails) {
+    case 'eye color':
+      findAttribute = searchByEyeColor(people);
+      break;
+    case 'Occupation':
+      findAttribute = searchByOccupation(people);
+      break;
+    case "Gender":
+      findAttribute = searchByOccupation(people);
+      break;
+    case "Dob":
+      findAttribute = searchByDOB(people);
+      break;
+    case 'weight':
+      findAttribute = searchByWeight(people);
+      break;
+    case 'height':
+      findAttribute = searchByHeight(people)
+      break;
+    case 'id':
+      findAttribute = searchBySpouse(people)
+    case 'current spouse':
+      break;
+    case 'parents':
+      findAttribute = searchByParents(people)
+      break;
+  }
+}
+      
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people) {
 
@@ -100,12 +100,6 @@ function mainMenu(person, people) {
 
 //#endregion
 
-//Filter functions.
-//Ideally you will have a function for each trait.
-/////////////////////////////////////////////////////////////////
-//#region 
-
-//nearly finished function used to search through an array of people to find matching first and last name and return a SINGLE person object.
 function searchByName(people) {
   let firstName = promptFor("What is the person's first name?", autoValid);
   let lastName = promptFor("What is the person's last name?", autoValid);
@@ -113,41 +107,14 @@ function searchByName(people) {
   let foundPerson = people.filter(function (potentialMatch) {
     if (potentialMatch.firstName === firstName && potentialMatch.lastName === lastName) {
       return true;
+    
     } else {
       return false;
     }
   })
-  // TODO: find the person single person object using the name they entered.
-  return foundPerson;
+  return foundPerson[0];
 }
 
-
-
-function searchByFirstName(people) {
-  let firstName = promptFor("What is the persons's first name?", autoValid);
-
-  let foundFirstName = people.filter(function (potentialMatch) {
-    if (potentialMatch.firstName === firstName) {
-      return true;
-    } else {
-      return false;
-    }
-  })
-  return foundfirstName;
-}
-
-function searchByLastName(people) {
-  let lastName = promptFor("What is the persons's last name?", autoValid);
-
-  let foundLastName = people.filter(function (potentialMatch) {
-    if (potentialMatch.lastName === lastName) {
-      return true;
-    } else {
-      return false;
-    }
-  })
-  return foundLastName;
-}
 
 
 //unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
