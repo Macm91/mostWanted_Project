@@ -84,16 +84,49 @@ let heightResults = [];
 let idResults = [];
 
 
-function filterTraits (parameter){
-let eyeOccResults= eyeResults.filter(function(occupationResults){
-  if (eyeOccResults != null){
-    return true;
-  } else {
-    return false;
-    return eyeOccResults = eyeResults;
+function filterTraits (people){
+  let gender = eyeResults(people)
+    if (gender == null){
+      gender = people;
+    }
+  let occupation = gender(occupationResults)
+    if(occupationResults == null){
+      occupation = gender;
+    }
+  let eyeColor = occupation(eyeResults)
+    if (eyeResults == null){
+      eyeColor = occupation;
+    }
+  let dob = eyeColor (dobResults)
+    if (dobResults == null){
+      dob = eyeColor;
+    }
+  let weight = dob(weightResults)
+    if (weightResults == null){
+      weight = dob;
+    }
+  let height = weight(heigh)
+    if (height == null){
+      height = weight;
+    }
+  let id = height(idResults)
+    if (idResults == null){
+      id = height;
+    }
+  
   }
 })
 }
+
+function multipleCriteriaSearch(people) {
+  let gender = searchByGender(people);
+  let eyeColor = searchByEyeColor(gender);
+  let occupation = searchByOccupation(eyeColor);
+  let age = searchByAge(occupation);
+  let height = searchByHeight(age);
+
+  return height;
+
 
 
 // Menu function to call once you find who you are looking for
@@ -107,13 +140,24 @@ function mainMenu(person, people) {
   let displayOption = promptFor("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", autoValid);
   switch (displayOption) {
     case "info":
-      // TODO: get person's info
+      alert (person.map(function(people){
+       let personInfo= "First Name: " + people.firstName + "\n";
+       personInfo += "Last Name: " + people.lastName + "\n";
+       personInfo += "Eye Color:" + person.eyeColor + "\n";
+       personInfo += "Occupation:" + person.occupation +"\n";
+       personInfo += "Gender:" + person.gender + "\n";
+       personInfo += "Height:" + person.height + "\n";
+       personInfo += "Weight:" + person.weight + "\n";
+    alert(personInfo);   
+  }).join("\n"));
+  }
       break;
     case "family":
       // TODO: get person's family
       break;
     case "descendants":
-      // TODO: get person's descendants
+      let displayOption = promptFor ("Found" + person.firstName + " " + person.lastName + "Would you like to see their descendants information?")
+      
       break;
     case "restart":
       app(people); // restart
