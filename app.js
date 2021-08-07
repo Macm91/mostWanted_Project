@@ -37,96 +37,85 @@ function traits(attribute) {
   input.toLowerCase();
     //above changes the string input to all lower case. below changes the input to a string
   let arrInput = input.split(" ")
+    let eyeResults = [];
+    let occupationResults = [];
+    let genderResults = [];
+    let dobResults = [];
+    let weightResults = [];
+    let heightResults = [];
+    let idResults = [];
 for (let i=0; i<=arrInput.length-1; i++){
   if (arrInput[i]=="eye"|| arrInput[i] == "eye color"){
     let findEyeColor = searchByEyeColor (attribute);
-    eyeResults.splice(0, 22, findEyeColor);
+    eyeResults.push(findEyeColor);
 
   }
   if (arrInput[i] == "occupation"||arrInput[i]  == "occupation,"){
     let findOccupation = searchByOccupation (attribute);
-     occupationResults.splice(0, 22,findOccupation);
+     occupationResults.push(findOccupation);
 
   }
   if (arrInput[i] == "gender"|| arrInput[i]  == "gender,"){
     let findGender = searchByGender (attribute);
-    genderResults.splice(0, 22, findGender); 
+    genderResults.push(findGender); 
   }
   if (arrInput[i] == "dob"|| arrInput[i]  == "dob,"){
     let findDob = searchByDOB(attribute);
-    dobResults.splice(0, 22,findDob);
+    dobResults.push(findDob);
   }
   if (arrInput[i]  == "weight"|| arrInput[i]  == "weight,"){
     let findWeight = searchByWeight(attribute);
-  weightResults.splice(0, 22, findWeight);
+  weightResults.push(findWeight);
   }
   if (arrInput[i] == "height"|| arrInput[i]  == "height,"){
   let findHeight = searchByHeight (attribute);
-  heightResults.splice(0, 22, findHeight);
+  heightResults.push(findHeight);
   }
   if (arrInput[i] == "id"|| arrInput[i]  == "id,"){
   let findId = searchById (attribute);
- idResults.splice(findId);
+  idResults.push(findId);
   }
 
   // final function needs to be the one comparing the results 
   //we will return a prompt that will display the info of the person from the final function 
   }
-  filterTraits(arrInput);
+  filterTraits(eyeResults, occupationResults, genderResults, dobResults, weightResults, heightResults, idResults);
 }
 
-let eyeResults = [];
-let occupationResults = [];
-let genderResults = [];
-let dobResults = [];
-let weightResults = [];
-let heightResults = [];
-let idResults = [];
 
 
-function filterTraits (people){
-  let gender = eyeResults(people)
-    if (gender == null){
-      gender = people;
+
+function filterTraits (t1,t2,t3,t4,t5,t6,t7){
+  let filter1 = people.filter(t1)
+    if (t1 == null){
+      filter1 = people;
     }
-  let occupation = gender(occupationResults)
-    if(occupationResults == null){
-      occupation = gender;
+  let filter2 = people.filter(t2)
+    if(t2 == null){
+      filter2 = filter1;
     }
-  let eyeColor = occupation(eyeResults)
-    if (eyeResults == null){
-      eyeColor = occupation;
+  let filter3 = people.filter(t3)
+    if (t3 == null){
+      filter3 = filter2;
     }
-  let dob = eyeColor (dobResults)
-    if (dobResults == null){
-      dob = eyeColor;
+  let filter4 = people.filter(t4)
+    if (t4 == null){
+      filter4 = filter3;
     }
-  let weight = dob(weightResults)
-    if (weightResults == null){
-      weight = dob;
+  let filter5 = people.filter(t5)
+    if (t5 == null){
+      filter5 = filter4;
     }
-  let height = weight(heigh)
-    if (height == null){
-      height = weight;
+  let filter6 = people.filter(t6)
+    if (t6 == null){
+      filter6 = filter5;
     }
-  let id = height(idResults)
-    if (idResults == null){
-      id = height;
+  let filter7 = people.filter(t7)
+    if (t7 == null){
+      filter7 = filter6;
     }
-  
+  displayPerson (filter7);
   }
-})
-}
-
-function multipleCriteriaSearch(people) {
-  let gender = searchByGender(people);
-  let eyeColor = searchByEyeColor(gender);
-  let occupation = searchByOccupation(eyeColor);
-  let age = searchByAge(occupation);
-  let height = searchByHeight(age);
-
-  return height;
-
 
 
 // Menu function to call once you find who you are looking for
@@ -151,22 +140,22 @@ function mainMenu(person, people) {
     alert(personInfo);   
   }).join("\n"));
   }
-      break;
-    case "family":
-      // TODO: get person's family
-      break;
-    case "descendants":
-      let displayOption = promptFor ("Found" + person.firstName + " " + person.lastName + "Would you like to see their descendants information?")
+  //     break;
+  //   case "family":
+  //     // TODO: get person's family
+  //     break;
+  //   case "descendants":
+  //     let displayOption = promptFor ("Found" + person.firstName + " " + person.lastName + "Would you like to see their descendants information?")
       
-      break;
-    case "restart":
-      app(people); // restart
-      break;
-    case "quit":
-      return; // stop execution
-    default:
-      return mainMenu(person, people); // ask again
-  }       
+  //     break;
+  //   case "restart":
+  //     app(people); // restart
+  //     break;
+  //   case "quit":
+  //     return; // stop execution
+  //   default:
+  //     return mainMenu(person, people); // ask again
+  // }       
 }
 
 //#endregion
