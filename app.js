@@ -4,28 +4,23 @@
 //Menu functions.
 //Used for the overall flow of the application.
 /////////////////////////////////////////////////////////////////
-//#region 
+//#r[g]on 
 
-// app is the function called to start the entire application
+// app is thefunction called to start the entire application
 function app(people) {
   let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
-  let searchResults;
-  let startFindAttributes;
+   let searchResults;
+   let startFindAttributes;
   switch (searchType) {
     case 'yes':
       searchResults = searchByName(people);
       break;
     case 'no':
+      ///do we ask if they want to search by one single trait here?
       startFindAttributes = traits(people);
-
-
-
-
-
-      // TODO: search by traits
       break;
     default:
-      app(people); // restart app
+      app(people);  // restart app
       break;
   }
 
@@ -33,38 +28,83 @@ function app(people) {
   mainMenu(searchResults, people);
 }
 
-// function pickTraits prompt: list up to 5 attributes to 
-//if...else to call the 
-let attributesReturned = [];
+
+
 
 function traits(attribute) {
   let input = prompt ("Please write up to 5 traits you would like to input to find your person. Options include: eye color, occupation, gender, DOB, Weight, Height, ID. ")
-  if ()
-  let findEyeColor = searchByEyeColor (attribute);
-  let findOccupation = searchByOccupation (attribute);
-  let findGender = searchByGender (attribute);
-  let findDob = searchByDOB(attribute);
-  let findWeight = searchByWeight(attribute);
+  input.trim();
+  input.toLowerCase();
+    //above changes the string input to all lower case. below changes the input to a string
+  let arrInput = input.split(" ")
+for (let i=0; i<=arrInput.length-1; i++){
+  if (arrInput[i]=="eye"|| arrInput[i] == "eye color"){
+    let findEyeColor = searchByEyeColor (attribute);
+    eyeResults.splice(0, 22, findEyeColor);
+
+  }
+  if (arrInput[i] == "occupation"||arrInput[i]  == "occupation,"){
+    let findOccupation = searchByOccupation (attribute);
+     occupationResults.splice(0, 22,findOccupation);
+
+  }
+  if (arrInput[i] == "gender"|| arrInput[i]  == "gender,"){
+    let findGender = searchByGender (attribute);
+    genderResults.splice(0, 22, findGender); 
+  }
+  if (arrInput[i] == "dob"|| arrInput[i]  == "dob,"){
+    let findDob = searchByDOB(attribute);
+    dobResults.splice(0, 22,findDob);
+  }
+  if (arrInput[i]  == "weight"|| arrInput[i]  == "weight,"){
+    let findWeight = searchByWeight(attribute);
+  weightResults.splice(0, 22, findWeight);
+  }
+  if (arrInput[i] == "height"|| arrInput[i]  == "height,"){
   let findHeight = searchByHeight (attribute);
+  heightResults.splice(0, 22, findHeight);
+  }
+  if (arrInput[i] == "id"|| arrInput[i]  == "id,"){
   let findId = searchById (attribute);
+ idResults.splice(findId);
+  }
 
   // final function needs to be the one comparing the results 
   //we will return a prompt that will display the info of the person from the final function 
   }
+  filterTraits(arrInput);
+}
 
-      
+let eyeResults = [];
+let occupationResults = [];
+let genderResults = [];
+let dobResults = [];
+let weightResults = [];
+let heightResults = [];
+let idResults = [];
+
+
+function filterTraits (parameter){
+let eyeOccResults= eyeResults.filter(function(occupationResults){
+  if (eyeOccResults != null){
+    return true;
+  } else {
+    return false;
+    return eyeOccResults = eyeResults;
+  }
+})
+}
+
+
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people) {
-
-  /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
-
+  /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. 
+  //We need people in order to find descendants and other information that the user may want. */
   if (!person) {
     alert("Could not find that individual.");
     return app(people); // restart
   }
-
   let displayOption = promptFor("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", autoValid);
-
   switch (displayOption) {
     case "info":
       // TODO: get person's info
@@ -89,6 +129,7 @@ function mainMenu(person, people) {
 
 function searchByName(people) {
   let firstName = promptFor("What is the person's first name?", autoValid);
+ //need to capitalize first letter bc its important to the matching process
   let lastName = promptFor("What is the person's last name?", autoValid);
 
   let foundPerson = people.filter(function (potentialMatch) {
@@ -144,7 +185,6 @@ function searchByGender(people) {
   })
   return foundGender;
 }
-
 
 function searchByDOB(people) {
   let dob = promptFor("What is the persons's date of birth?", autoValid);
@@ -245,17 +285,20 @@ function displayPeople(people) {
   }).join("\n"));
 }
 
-function displayPerson(person) {
+function displayPerson(people) {
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
-  let personInfo = "First Name: " + person.firstName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
+  alert(people.map(function (person) {
+  let personInfo = "First Name: " + people.firstName + "\n";
+  personInfo += "Last Name: " + people.lastName + "\n";
   // TODO: finish getting the rest of the information to display.
   alert(personInfo);
+    
+}).join("\n"));
 }
-
 //#endregion
-
+//////////////running into problems with display person and the splitting of the //////
+//////////////arrays that have been filtered for each trait. /////////////////////////
 
 
 //Validation functions.
@@ -274,14 +317,15 @@ function promptFor(question, valid) {
     response = prompt(question).trim();
     isValid = valid(response);
   } while (response === "" || isValid === false)
-  return response
+  return response;
 }
 
-// helper function/callback to pass into promptFor to validate yes/no answers.
+// helper fuction/callback to pass into promptFor to validate yes/no answers.
 function yesNo(input) {
-  if (input.toLowerCase() == "yes" || input.toLowerCase() == "no") {
+  if (input.toLowerCase() ==  "yes" || input.toLowerCase() == "no") {
     return true;
-  } else {
+  } 
+  else {
     return false;
   }
 }

@@ -32,9 +32,6 @@ function app(people){
 
 function callFeatures (noResponse){
   let searchAgain = prompt ("Please enter the type of information that you would like to use to search for a person. Options: first, last, DOB, gender, height, weight, eye color, occupation, parents, current spouse.") 
- //changes the input to all lower case. 
-//  searchAgain.toLowerCase();
- //turn string into an array. 
  let arrSearchAgain = searchAgain.split(" ");
  console.log (arrSearchAgain);
   for (let i=0; i<=arrSearchAgain.length-1; i++ ){  
