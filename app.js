@@ -126,54 +126,82 @@ function mainMenu(person, people) {
     alert("Could not find that individual.");
     return app(people); // restart
   }
-  let displayOption = promptFor("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", autoValid);
+
+  
+  let displayOption = promptFor("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", autoValid);
   switch (displayOption) {
     case "info":
-      alert (person.map(function(people){
-       let personInfo= "First Name: " + people.firstName + "\n";
-       personInfo += "Last Name: " + people.lastName + "\n";
-       personInfo += "Eye Color:" + person.eyeColor + "\n";
-       personInfo += "Occupation:" + person.occupation +"\n";
-       personInfo += "Gender:" + person.gender + "\n";
-       personInfo += "Height:" + person.height + "\n";
-       personInfo += "Weight:" + person.weight + "\n";
-    alert(personInfo);   
-  }).join("\n"));
-  }
-  //     break;
-  //   case "family":
-  //     // TODO: get person's family
-  //     break;
-  //   case "descendants":
-  //     let displayOption = promptFor ("Found" + person.firstName + " " + person.lastName + "Would you like to see their descendants information?")
+      let displayInfo =  "Name:" + person[0].firstName+ " "+ person[0].lastName+ "\n";
+      displayInfo += "ID: " + person[0].id +"\n";
+      displayInfo += "DOB:" + person[0].dob + "\n";
+      displayInfo += " Gender: "+ person[0].gender + "\n";
+      displayInfo += " Height: "+ person[0].height + "\n";
+      displayInfo += " Weight: "+ person[0].weight + "\n";
+      displayInfo += " Eye Color: "+ person[0].eyeColor +"\n";
+      displayInfo +=  " Occupation: " + person[0].occupation + "\n";
+      displayInfo += "\n";
+      displayInfo += "click 'ok' to see family information.";
+      alert (displayInfo);
       
-  //     break;
-  //   case "restart":
-  //     app(people); // restart
-  //     break;
-  //   case "quit":
-  //     return; // stop execution
-  //   default:
-  //     return mainMenu(person, people); // ask again
-  // }       
+    case "family":
+      let displayFamily =  "The family of " + person[0].firstName+ " "+ person[0].lastName+  " is: " + "\n";
+      displayFamily += "Parents ID:" + person[0].parents + "\n";
+      displayFamily += " Current Spouse ID: "+ person[0].currentSpouse + "\n";
+      alert (displayFamily);
+    case "descendants":
+     let displayDescendants = promptFor ("Found " + person[0].firstName + " " + person[0].lastName + "Would you like to see their descendants information?", yesNo);
+        switch(displayDescendants){
+          case "yes":
+            let descendants = findDescendants(people, person[0].id);
+            alert (descendants);
+            break;
+          case "no":
+            app(people);
+            break;
+        }
+      break;
+    case "restart":
+      app(people); // restart
+      break;
+    case "quit":
+      return; // stop execution
+    default:
+      return mainMenu(person, people); // ask again
+  }       
 }
 
 //#endregion
 
+
+function findDescendants(people, person) {
+  let foundDescendants = [];
+  for (let i = 0; i < people.length; i++) {
+    if (people[i].parents.includes(person)) {
+      foundDescendants.push(people[i].firstName + " " + people[i].lastName + " " + people[i].id);
+    }
+  }
+  for (let i = 0; i < foundDescendants.length; i++) {
+    foundDescendants = foundDescendants.concat(
+      findDescendants (people, foundDescendants[i])
+    );
+  }
+   return foundDescendants;
+}
+
 function searchByName(people) {
   let firstName = promptFor("What is the person's first name?", autoValid);
- //need to capitalize first letter bc its important to the matching process
   let lastName = promptFor("What is the person's last name?", autoValid);
 
   let foundPerson = people.filter(function (potentialMatch) {
     if (potentialMatch.firstName === firstName && potentialMatch.lastName === lastName) {
       return true;
-    
-    } else {
+    }
+     else {
       return false;
     }
   })
-  return foundPerson[0];
+  // TODO: find the person single person object using the name they entered.
+  return foundPerson;
 }
 
 
@@ -285,18 +313,7 @@ function searchBySpouse(people) {
   return foundCurrentSpouse;
 }
 
-function searchByParents(people) {
-  let parents = promptFor("Who is the persons's parents?", autoValid);
 
-  let foundParents = people.filter(function (potentialMatch) {
-    if (potentialMatch.parents === parents) {
-      return true;
-    } else {
-      return false;
-    }
-  })
-  return foundParents;
-}
 
 
 
@@ -313,42 +330,28 @@ function searchByParents(people) {
 
 // alerts a list of people
 function displayPeople(people) {
-  alert(people.map(function (person) {
+  alert(people.map(function (person){
     return person.firstName + " " + person.lastName;
   }).join("\n"));
 }
 
 function displayPerson(people) {
-  // print all of the information about a person:
-  // height, weight, age, name, occupation, eye color.
-  alert(people.map(function (person) {
   let personInfo = "First Name: " + people.firstName + "\n";
   personInfo += "Last Name: " + people.lastName + "\n";
-  // TODO: finish getting the rest of the information to display.
+
   alert(personInfo);
-    
-}).join("\n"));
 }
 //#endregion
-//////////////running into problems with display person and the splitting of the //////
-//////////////arrays that have been filtered for each trait. /////////////////////////
 
-
-//Validation functions.
-//Functions to validate user input.
-/////////////////////////////////////////////////////////////////
-//#region 
 
 //a function that takes in a question to prompt, and a callback function to validate the user input.
 //response: Will capture the user input.
 //isValid: Will capture the return of the validation function callback. true(the user input is valid)/false(the user input was not valid).
 //this function will continue to loop until the user enters something that is not an empty string("") or is considered valid based off the callback function(valid).
 function promptFor(question, valid) {
-  let response;
-  let isValid;
   do {
-    response = prompt(question).trim();
-    isValid = valid(response);
+    var response = prompt(question).trim();
+    var isValid = valid(response);
   } while (response === "" || isValid === false)
   return response;
 }
