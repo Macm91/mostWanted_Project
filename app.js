@@ -29,81 +29,120 @@ function app(people) {
 }
 
 
-let eyeResults = [];
-let occupationResults = [];
-let genderResults = [];
-let dobResults = [];
-let weightResults = [];
-let heightResults = [];
-let idResults = [];
 
-function traits(attribute, people) {
+function traits(people) {
   let input = prompt ("Please write up to 5 traits you would like to input to find your person. Options include: eye color, occupation, gender, DOB, Weight, Height, ID. ")
   input.trim();
   input.toLowerCase();
-    //above changes the string input to all lower case. below changes the input to a string
   let arrInput = input.split(" ")
+  let compareArr = people
+  let searchArr = []
+
 for (let i=0; i<=arrInput.length-1; i++){
   if (arrInput[i]=="eye"|| arrInput[i] == "eye color"){
-    let findEyeColor = searchByEyeColor (attribute);
-    eyeResults.push(findEyeColor);
-
-  }
-  if (arrInput[i] == "occupation"||arrInput[i]  == "occupation,"){
-    let findOccupation = searchByOccupation (attribute);
-     occupationResults.push(findOccupation);
-
-  }
-  if (arrInput[i] == "gender"|| arrInput[i]  == "gender,"){
-    let findGender = searchByGender (attribute);
-    genderResults.push(findGender); 
-  }
-  if (arrInput[i] == "dob"|| arrInput[i]  == "dob,"){
-    let findDob = searchByDOB(attribute);
-    dobResults.push(findDob);
-  }
-  if (arrInput[i]  == "weight"|| arrInput[i]  == "weight,"){
-    let findWeight = searchByWeight(attribute);
-  weightResults.push(findWeight);
-  }
-  if (arrInput[i] == "height"|| arrInput[i]  == "height,"){
-  let findHeight = searchByHeight (attribute);
-  heightResults.push(findHeight);
-  }
-  if (arrInput[i] == "id"|| arrInput[i]  == "id,"){
-  let findId = searchById (attribute);
-  idResults.push(findId);
-  }
-
-  // final function needs to be the one comparing the results 
-  //we will return a prompt that will display the info of the person from the final function 
-  }
-  forLoopMultiSearch(eyeResults, occupationResults);
-}
-
-// function compareMulti (results){
-//   let compare = results.filter(function (occupationResults){
-//     if (occupationResults.firstName === results.firstName && occupationResults.lastName === results.lastName){
-//       return true;
-     
-//     }  else {
-//       return false;
-//   }
-//   })
-//   return compare;
-//   }
-
-function forLoopMultiSearch (arr1, arr2){
-  let arr3 = [];
-  for (let i=0; i<arr1.length-1; i++){
-    for (let j=0; j<arr2.length-1; i++){
-      if (arr1[i] === arr2[j]) {
-        arr3.push(arr1[i]);
-      }
+    searchArr = compareArr
+    let findEyeColor = searchByEyeColor (searchArr);
+    searchArr = compareArr
     }
   }
-  alert (arr3);
-}
+  if (arrInput[i]=="weight" || arrInput[i]=="weight,"){
+    let findWeight = searchByWeight(searchArr);
+    compareArr = findWeight;
+    if (compareArr.length == 0) {
+        alert("No results found")
+        return;
+    }
+   
+  }
+  else if (arrInput[i]=="occupation" || arrInput[i]=="occupation,") {
+    let findOccupation= searchByOccupation(searchArr);
+    compareArr = findOccupation;
+    if (compareArr.length == 0) {
+        alert("No results found")
+        return;
+    }
+    
+  }
+  else if (arrInput[i]=="gender" || arrInput[i]=="gender,") {
+  let findGender = searchByGender(searchArr);
+    compareArr = findGender;
+    if (compareArr.length == 0) {
+        alert("No results found")
+    }
+  }
+  else if (arrInput[i]=="dob" || arrInput[i]=="dob," || arrInput[i]=="date of birth" || arrInput[i]=="date of birth,") {
+  let findDob = searchByDOB(searchArr);
+    compareArr = findDob;
+    if (compareArr.length == 0) {
+        alert("No results found")
+    }
+  }
+  else if (arrInput[i] == "height"|| arrInput[i]  == "height,"){
+    searchArr = compareArr
+    let findHeight = searchByHeight (searchArr);
+    compareArr = findHeight;
+    if (compareArr.length == 0) {
+          alert("No results found")
+    }
+  }
+  else if (arrInput[i] == "id"|| arrInput[i]  == "id,"){
+    searchArr = compareArr
+    let findId = searchById (searchArr);
+    compareArr = findId;
+    if (compareArr.length == 0) {
+      alert("No results found")
+    }
+   }
+   displayPerson (compareArr);
+  }
+
+// ********This was an attempt at the Multi Filter that I wasn't willing to delete yet.********************************
+//   compareArr = [eyeResults, occupationResults, genderResults, dobResults, weightResults, heightResults]
+//   let eyeResults = arrOfArrays[0];
+//   let occupationResults = arrOfArrays[1];
+//   let genderResults = arrOfArrays[2];
+//   let dobResults = arrOfArrays[3];
+//   let weightResults = arrOfArrays[4];
+//   let heightResults = arrOfArrays[5];
+  
+
+//   let comparedArr = [];
+//   let comparedArrAlt = []
+ 
+//   for (let i = 0; i<eyeResults.length; i++){
+//     for (let j = 0; j<occupationResults.length; j++){
+//       if (eyeResults[i] === occupationResults[j]) {
+//         comparedArr.push(eyeResults[i])
+//       }
+//     }
+//   }
+//   for (let i = 0; i<comparedArr.length; i++){
+//     for (let j = 0; j<genderResults.length; j++){
+//       if (comparedArr[i] === genderResults[j]) {
+//         comparedArrAlt.push(comparedArr[i])
+//       }
+//     }
+//   }
+//   comparedArr = []
+//   for (let i = 0; i<comparedArrAlt.length; i++){
+//     for (let j = 0; j<genderResults.length; j++){
+//       if (comparedArrAlt[i] === genderResults[j]) {
+//         comparedArr.push(comparedArrAlt[i])
+//       }
+//     }
+//   }
+  
+
+//   let arr3 = [];
+//   for (let i=0; i<arr1.length-1; i++){
+//     for (let j=0; j<arr2.length-1; j++){
+//       if (arr1[i] === arr2[j]) {
+//         arr3.push(arr1[i]);
+//       }
+//     }
+//   }
+//   alert ("The person " arr3);
+// }
 
 
 // Menu function to call once you find who you are looking for
@@ -187,13 +226,10 @@ function searchByName(people) {
       return false;
     }
   })
-  // TODO: find the person single person object using the name they entered.
   return foundPerson;
 }
 
 
-
-//unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
 function searchByEyeColor(people) {
   let eyeColor = promptFor("What is the persons's eye color?", autoValid);
 
@@ -207,7 +243,6 @@ function searchByEyeColor(people) {
   return foundEyeColor;
 }
 
-//TODO: add other trait filter functions here.
 function searchByOccupation(people) {
   let occupation = promptFor("What is the persons's Occuapation?", autoValid);
 
