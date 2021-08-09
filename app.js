@@ -29,21 +29,20 @@ function app(people) {
 }
 
 
+let eyeResults = [];
+let occupationResults = [];
+let genderResults = [];
+let dobResults = [];
+let weightResults = [];
+let heightResults = [];
+let idResults = [];
 
-
-function traits(attribute) {
+function traits(attribute, people) {
   let input = prompt ("Please write up to 5 traits you would like to input to find your person. Options include: eye color, occupation, gender, DOB, Weight, Height, ID. ")
   input.trim();
   input.toLowerCase();
     //above changes the string input to all lower case. below changes the input to a string
   let arrInput = input.split(" ")
-    let eyeResults = [];
-    let occupationResults = [];
-    let genderResults = [];
-    let dobResults = [];
-    let weightResults = [];
-    let heightResults = [];
-    let idResults = [];
 for (let i=0; i<=arrInput.length-1; i++){
   if (arrInput[i]=="eye"|| arrInput[i] == "eye color"){
     let findEyeColor = searchByEyeColor (attribute);
@@ -79,43 +78,32 @@ for (let i=0; i<=arrInput.length-1; i++){
   // final function needs to be the one comparing the results 
   //we will return a prompt that will display the info of the person from the final function 
   }
-  filterTraits(eyeResults, occupationResults, genderResults, dobResults, weightResults, heightResults, idResults);
+  forLoopMultiSearch(eyeResults, occupationResults);
 }
 
+// function compareMulti (results){
+//   let compare = results.filter(function (occupationResults){
+//     if (occupationResults.firstName === results.firstName && occupationResults.lastName === results.lastName){
+//       return true;
+     
+//     }  else {
+//       return false;
+//   }
+//   })
+//   return compare;
+//   }
 
-
-
-function filterTraits (t1,t2,t3,t4,t5,t6,t7){
-  let filter1 = people.filter(t1)
-    if (t1 == null){
-      filter1 = people;
+function forLoopMultiSearch (arr1, arr2){
+  let arr3 = [];
+  for (let i=0; i<arr1.length-1; i++){
+    for (let j=0; j<arr2.length-1; i++){
+      if (arr1[i] === arr2[j]) {
+        arr3.push(arr1[i]);
+      }
     }
-  let filter2 = people.filter(t2)
-    if(t2 == null){
-      filter2 = filter1;
-    }
-  let filter3 = people.filter(t3)
-    if (t3 == null){
-      filter3 = filter2;
-    }
-  let filter4 = people.filter(t4)
-    if (t4 == null){
-      filter4 = filter3;
-    }
-  let filter5 = people.filter(t5)
-    if (t5 == null){
-      filter5 = filter4;
-    }
-  let filter6 = people.filter(t6)
-    if (t6 == null){
-      filter6 = filter5;
-    }
-  let filter7 = people.filter(t7)
-    if (t7 == null){
-      filter7 = filter6;
-    }
-  displayPerson (filter7);
   }
+  alert (arr3);
+}
 
 
 // Menu function to call once you find who you are looking for
@@ -127,7 +115,6 @@ function mainMenu(person, people) {
     return app(people); // restart
   }
 
-  
   let displayOption = promptFor("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", autoValid);
   switch (displayOption) {
     case "info":
@@ -375,7 +362,5 @@ function autoValid(input) {
 //Unfinished validation function you can use for any of your custom validation callbacks.
 //can be used for things like eye color validation for example.
 function customValidation(input) {
-
 }
 
-//#endregion
